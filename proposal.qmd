@@ -1,11 +1,9 @@
 ---
-title: "Proposal title"
-subtitle: "Proposal"
+title: "INFO526 Final Project Proposal"
 author: 
-  - name: "Team Name"
-    affiliations:
-      - name: "School of Information, University of Arizona"
-description: "Project description"
+  - name: "Vincent Sciulli"
+    affiliations: "School of Information, University of Arizona"
+description: "Data Visualizing 7 Generations of Pokemon"
 format:
   html:
     code-tools: true
@@ -18,27 +16,46 @@ execute:
   warning: false
 ---
 
-```{r}
+```{r setup}
 #| label: load-pkgs
 #| message: false
-library(tidyverse)
+#| echo: false
+
+if (!require("pacman")) 
+  install.packages("pacman")
+
+pacman::p_load(tidyverse,scales,glue,scico,readr,dplyr, hms) 
 ```
 
 ## Dataset
 
-```{r}
+```{r extraction and glimpse}
 #| label: load-dataset
 #| message: false
+
+#Extracting dataset from git
+pokemon_df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')
+
+pokemon_df |>
+  
+  #Calculating base stat total which is a general guideline to a Pokemon's overall strength. Sum of the six stat classes
+  mutate(
+    base_stat_total = (attack+defense+special_attack+special_defense+speed+hp)
+  ) |>
+  glimpse() #checking the data
+
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
-
-Make sure to load the data and use inline code for some of this information.
+The dataset that I am pulling from is the TidyTuesday "Pokemon" set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on. The reason this set stuck out to me so much is that I was a huge fan growing up and recently got back into the series as a part of a nostalgia phase. What I enjoy most about this set is it nearly covers the entire span of time in which I played the series (Generations 1 to Generation 6, with the exception of Generation 7). The series has since continued up to Generation 9, but I have no clue on anything related to the later generations. This project is fueled out of a love for the games and the first question is certainly something that younger me would have wanted answered but lacked the data wrangling and visualizing knowledge. Going into this project, I certainly wanted to enjoy working on it and I'm very confident I'll get that with this set!
 
 ## Questions
 
-The two questions you want to answer.
+1.  **Which starter Pokemon is the best choice (statistically) overall and by type?** This will look at base stat totals and be split between the three evolutions and types. This question extends not just at the starting evolution but will be visualized across all three stages and will distinguish between the Pokemon's type. If you are unfamilar with the franchise, starter Pokemon are given to the player from the get-go however the player must choose between a select three for each generation (ex. Gen 1 had Charmander, Squirtle, and Bulbasaur). I noted "statistically" in my question, as there are subjective aspects such as move sets and key game battles being prioritized over others. These cannot be quantified without my own biased opinions or a data set (not found), so it is certainly best left out.
+
+2.  **What is the type diversity across the seven generations and their respective regions?** Again, if you are unfamiliar with the series, each generation has a region that the player journeys through. The region has returning and new Pokemon alike and are based off various regions of either Japan or the world. For example, the Hoenn region (Generation 3) is associated with a tropical climate so one would expect to see if Water type Pokemon house a majority of that region's Pokedex (database used in the games). Pokemon have one or two assigned types that characterizes them and is an essential game mechanic which determines their resistances, strengths and weaknesses. I mentioned Water before and this would be associated with aquatic species.
 
 ## Analysis plan
 
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+1.  To answer the first question: I'll first have to make a static tibble or use a filter on the data that only includes the 21 starters across seven generations and their evolutions (total of 63 Pokemon). Then, using the calculated base_stat_total, I will plot how they compare Other variables would include type_1 and a new evolution variable "evo_stage" which I plan on integrating. These two, in tandem, will introduce the variables necessary for splitting up the data and visualize the three stages starter into separate plots on top of each other, rather than all 63 data points being clustered together. With type allowing for color visuals to make them distinct. This will help to answer a few questions such as "which is best overall", "which is the best of X type", and so on - not just the overall question I'm posing in the previous section.
+
+2.  The first step is to group each Pokemon into their associated region using a new variable aptly called "region". I have yet to find an external database that can provide this, however doing some research I can use the Pokemon's IDs to auto group them into the regions using "case_when". I love the second question so I'll certainly put in the effort! From there, it is a matter of using type_1 and type_2 to gather the amount of each type there is in a region. Then I would plot this visually on one plot with the types being the x-axis and then a density point plot where the regions are displayed.
