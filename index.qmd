@@ -1,8 +1,8 @@
 ---
-title: "Project Title"
+title: "Gotta Visualize 'Em All!"
 subtitle: "INFO 526 - Summer 2024 - Final Project"
 author: 
-  - name: "Team name"
+  - name: "Vincent Sciulli"
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
