@@ -1,11 +1,11 @@
 ---
 title: "Gotta Visualize 'Em All!"
-subtitle: "INFO 526 - Summer 2024 - Final Project"
+subtitle: "INFO 526 - Summer 2026 - Final Project"
 author: 
   - name: "Vincent Sciulli"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Project description"
+description: "This project will jump into the world of Pokemon through the 'Pokemon' dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon?"  
 format:
    html:
     code-tools: true
@@ -19,4 +19,4 @@ execute:
 
 ## Abstract
 
-Add project abstract here.
+This project will jump into the world of Pokemon through the 'Pokemon' dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon? While the aforementioned questions will be answered, we'll also discover how well the Pokemon developers, GameFreak, balanced not just the partner Pokemon that accompanies us throughout our journeys, but also the available Pokemon that we'll meet through a given region.

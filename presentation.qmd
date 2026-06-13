@@ -1,6 +1,6 @@
 ---
 title: "Gotta Visualize 'Em All!"
-subtitle: "INFO 526 - Summer 2024 - Final Project"
+subtitle: "INFO 526 - Summer 2026 - Final Project"
 author: "Author names"
 title-slide-attributes:
   data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
