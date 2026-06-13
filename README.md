@@ -13,7 +13,7 @@ This project will jump into the world of Pokemon through the 'Pokemon' dataset p
 #### Variables:
 
 | **Variable** | **Class** | **Description** |
-|---------------------|-----------------|----------------------------------|
+|----|----|----|
 | id | integer | The unique ID of each Pokemon. |
 | pokemon | character | The name of each pokemon. |
 | species_id | integer | The species ID of each Pokemon. |

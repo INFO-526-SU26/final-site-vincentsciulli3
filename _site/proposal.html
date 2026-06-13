@@ -4308,42 +4308,34 @@ vertical-align: -.125em;
 <section id="dataset" class="level2">
 <h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#Extracting dataset from git</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>pokemon_df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv&#39;</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Data saved from gitpage locally. Extracting dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>pokemon_df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;data/pokemon_df.csv&#39;</span>)</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a>pokemon_df <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5"></a>  </span>
-<span id="cb1-6"><a href="#cb1-6"></a>  <span class="co">#Calculating base stat total which is a general guideline to a Pokemon&#39;s overall strength. Sum of the six stat classes</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="co"># Calculating base stat total which is a general guideline to a Pokemon&#39;s overall strength. Sum of the six stat classes</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-8"><a href="#cb1-8"></a>    <span class="at">base_stat_total =</span> (attack<span class="sc">+</span>defense<span class="sc">+</span>special_attack<span class="sc">+</span>special_defense<span class="sc">+</span>speed<span class="sc">+</span>hp)</span>
-<span id="cb1-9"><a href="#cb1-9"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">glimpse</span>() <span class="co">#checking the data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="at">base_stat_total =</span> (attack <span class="sc">+</span> defense <span class="sc">+</span> special_attack <span class="sc">+</span> special_defense <span class="sc">+</span> speed <span class="sc">+</span> hp)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 949
-Columns: 23
-$ id              &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
-$ pokemon         &lt;chr&gt; &quot;bulbasaur&quot;, &quot;ivysaur&quot;, &quot;venusaur&quot;, &quot;charmander&quot;, &quot;cha…
-$ species_id      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
-$ height          &lt;dbl&gt; 0.7, 1.0, 2.0, 0.6, 1.1, 1.7, 0.5, 1.0, 1.6, 0.3, 0.7,…
-$ weight          &lt;dbl&gt; 6.9, 13.0, 100.0, 8.5, 19.0, 90.5, 9.0, 22.5, 85.5, 2.…
-$ base_experience &lt;dbl&gt; 64, 142, 236, 62, 142, 240, 63, 142, 239, 39, 72, 178,…
-$ type_1          &lt;chr&gt; &quot;grass&quot;, &quot;grass&quot;, &quot;grass&quot;, &quot;fire&quot;, &quot;fire&quot;, &quot;fire&quot;, &quot;wa…
-$ type_2          &lt;chr&gt; &quot;poison&quot;, &quot;poison&quot;, &quot;poison&quot;, NA, NA, &quot;flying&quot;, NA, NA…
-$ hp              &lt;dbl&gt; 45, 60, 80, 39, 58, 78, 44, 59, 79, 45, 50, 60, 40, 45…
-$ attack          &lt;dbl&gt; 49, 62, 82, 52, 64, 84, 48, 63, 83, 30, 20, 45, 35, 25…
-$ defense         &lt;dbl&gt; 49, 63, 83, 43, 58, 78, 65, 80, 100, 35, 55, 50, 30, 5…
-$ special_attack  &lt;dbl&gt; 65, 80, 100, 60, 80, 109, 50, 65, 85, 20, 25, 90, 20, …
-$ special_defense &lt;dbl&gt; 65, 80, 100, 50, 65, 85, 64, 80, 105, 20, 25, 80, 20, …
-$ speed           &lt;dbl&gt; 45, 60, 80, 65, 80, 100, 43, 58, 78, 45, 30, 70, 50, 3…
-$ color_1         &lt;chr&gt; &quot;#78C850&quot;, &quot;#78C850&quot;, &quot;#78C850&quot;, &quot;#F08030&quot;, &quot;#F08030&quot;,…
-$ color_2         &lt;chr&gt; &quot;#A040A0&quot;, &quot;#A040A0&quot;, &quot;#A040A0&quot;, NA, NA, &quot;#A890F0&quot;, NA…
-$ color_f         &lt;chr&gt; &quot;#81A763&quot;, &quot;#81A763&quot;, &quot;#81A763&quot;, NA, NA, &quot;#DE835E&quot;, NA…
-$ egg_group_1     &lt;chr&gt; &quot;monster&quot;, &quot;monster&quot;, &quot;monster&quot;, &quot;monster&quot;, &quot;monster&quot;,…
-$ egg_group_2     &lt;chr&gt; &quot;plant&quot;, &quot;plant&quot;, &quot;plant&quot;, &quot;dragon&quot;, &quot;dragon&quot;, &quot;dragon…
-$ url_icon        &lt;chr&gt; &quot;//archives.bulbagarden.net/media/upload/7/7b/001MS6.p…
-$ generation_id   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ url_image       &lt;chr&gt; &quot;https://raw.githubusercontent.com/HybridShivam/Pokemo…
-$ base_stat_total &lt;dbl&gt; 318, 405, 525, 309, 405, 534, 314, 405, 530, 195, 205,…</code></pre>
+<pre><code># A tibble: 949 × 23
+      id pokemon    species_id height weight base_experience type_1 type_2    hp
+   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
+ 1     1 bulbasaur           1    0.7    6.9              64 grass  poison    45
+ 2     2 ivysaur             2    1     13               142 grass  poison    60
+ 3     3 venusaur            3    2    100               236 grass  poison    80
+ 4     4 charmander          4    0.6    8.5              62 fire   &lt;NA&gt;      39
+ 5     5 charmeleon          5    1.1   19               142 fire   &lt;NA&gt;      58
+ 6     6 charizard           6    1.7   90.5             240 fire   flying    78
+ 7     7 squirtle            7    0.5    9                63 water  &lt;NA&gt;      44
+ 8     8 wartortle           8    1     22.5             142 water  &lt;NA&gt;      59
+ 9     9 blastoise           9    1.6   85.5             239 water  &lt;NA&gt;      79
+10    10 caterpie           10    0.3    2.9              39 bug    &lt;NA&gt;      45
+# ℹ 939 more rows
+# ℹ 14 more variables: attack &lt;dbl&gt;, defense &lt;dbl&gt;, special_attack &lt;dbl&gt;,
+#   special_defense &lt;dbl&gt;, speed &lt;dbl&gt;, color_1 &lt;chr&gt;, color_2 &lt;chr&gt;,
+#   color_f &lt;chr&gt;, egg_group_1 &lt;chr&gt;, egg_group_2 &lt;chr&gt;, url_icon &lt;chr&gt;,
+#   generation_id &lt;dbl&gt;, url_image &lt;chr&gt;, base_stat_total &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>The dataset that I am pulling from is the TidyTuesday “Pokemon” set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on.</p>
@@ -4352,17 +4344,23 @@ $ base_stat_total &lt;dbl&gt; 318, 405, 525, 309, 405, 534, 314, 405, 530, 195, 
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <ol type="1">
-<li><p><strong>Which starter Pokemon is the best choice (statistically) overall and by type?</strong> This will look at base stat totals and be split between the three evolutions and types of starters the player can encounter. This question extends not just at the starting evolution but will be visualized across all three stages and will distinguish between the Pokemon’s type. I noted “statistically” in my question, as there are subjective aspects such as move sets and key game battles being prioritized over others. These cannot be quantified without my own biased opinions or a data set (not found), so it is certainly best left out.</p>
+<li><p><strong>Which starter Pokemon is the best choice (statistically) overall and by type?</strong> This will look at base stat totals and be split between the three evolutions and types of starters the player can encounter. This question extends not just at the starting evolution but will be visualized across all three stages and will distinguish between the Pokemon’s type. I noted “statistically” in my question, as there are subjective aspects such as move sets and key game battles being prioritized over others. These cannot be quantified without my own biased opinions or a data set (not found), so it is certainly best left out. Overall, we’ll also find out how well GameFreak (developers of Pokemon) balances their starters.</p>
 <p>If you are unfamilar with the franchise, starter Pokemon are given to the player from the get-go with the player having to choose between a select three (fire, water, and grass type) for each generation (ex. Gen 1 had Charmander, Squirtle, and Bulbasaur).</p></li>
-<li><p><strong>What is the type diversity across the seven generations and their respective regions?</strong> The games take place in several places across the Pokemon world that the player journeys through. Each region has returning and new Pokemon alike and are based off various regions of either Japan or the world. For example, the Hoenn region (setting for Generation 3) is associated with a tropical climate. The question will be looking at how many of each type are within each region, so one would expect to see Water and Grass type Pokemon house a majority of the Hoenn region’s Pokedex (database used in the games) if it is in fact tropical.</p>
-<p>Again if you are unfamiliar with the series and how the games work, Pokemon have one or two assigned types that characterizes them and is an essential game mechanic which determines their resistances, strengths and weaknesses. I mentioned Water before and this would be associated with aquatic species.</p></li>
+<li><p><strong>What is the type diversity across the seven generations and their respective regions?</strong> The games take place in several places or “regions” across the Pokemon world that the player journeys through. Each region has returning and new Pokemon alike and are based off various regions of either Japan or the world. For example, the Unova region (setting for Generation 5) was based off the United State’s New York City (only NYC doesn’t have a giant desert to the north of it!). The question will be looking at how many of each type are within each region, and this can be interesting to see how GameFreak has balanced the regions as the series went on.</p>
+<p>Again if you are unfamiliar with the series and how the games work, Pokemon have one or two assigned types that characterizes them and is an essential game mechanic which determines their resistances, strengths and weaknesses. Some Pokemon are mono-typed and some can have two types associated to them.</p></li>
 </ol>
 </section>
 <section id="analysis-plan" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-plan">Analysis plan</h2>
 <ol type="1">
-<li><p>To answer the first question: I’ll first have to make a static tibble or use a filter on the data that only includes the 21 starters across seven generations and their evolutions (total of 63 Pokemon). Then, using the calculated base_stat_total, I will plot how they compare Other variables would include type_1 and a new evolution variable “evo_stage” which I plan on integrating. These two, in tandem, will introduce the variables necessary for splitting up the data and visualize the three stages starter into separate plots on top of each other, rather than all 63 data points being clustered together. With type allowing for color visuals to make them distinct. This will help to answer a few questions such as “which is best overall”, “which is the best of X type”, and so on - not just the overall question I’m posing in the previous section.</p></li>
-<li><p>The first step is to group each Pokemon into their associated region using a new variable aptly called “region”. I have yet to find an external database that can provide this, however doing some research I can use the Pokemon’s IDs to auto group them into the regions using “case_when”. I love the second question so I’ll certainly put in the effort! From there, it is a matter of using type_1 and type_2 to gather the amount of each type there is in a region. Then I would plot this visually on one plot with the types being the x-axis and then a density point plot where the regions are displayed.</p></li>
+<li><p>To answer the first question: I’ll first have to utilize a “case_when” script to mutate a new “starter” variable that will classify my 63 starter Pokemon as starters. “starters” will be a Yes/No chr variable. After this I can use a filter on the data to get the desired data set for this question using “starter”. Then, using the calculated base_stat_total, I will plot how they compare. Other variables would include type_1 and a new evolution variable “evo_stage” which I plan on integrating through manual input into the dataset. These two, in tandem, will introduce the variables necessary for splitting up the data and visualizing the three stages starter into separate plots on top of each other, rather than all 63 data points being clustered together. With type allowing for color visuals to make them distinct. This will help to answer a few questions such as “which is best overall”, “which is the best of X type”, and so on - not just the overall question I’m posing in the previous section.</p></li>
+<li><p>The first step is to group each Pokemon into their associated region using a new variable aptly called “region”. I have yet to find an external database that can provide this, however doing some research I can use the Pokemon’s IDs to auto group them into the regions using “case_when”. I love the second question so I’ll certainly put in the effort! From there, it is a matter of using type_1 and type_2 to gather the amount of each type there is in a region. Then I would plot this visually on one plot with the types being the x-axis and then vertically oriented scatter plots of the regions above each type. With there being seven regions, the various colors and shapes at my disposal should allow for easy identification.</p>
+<p>Some disclaimers on the above questions:</p>
+<ul>
+<li><p>For both questions, I will be removing Mega-Evolutions from the dataset. To me, these are pure duplicates of their base forms so I do not want to double count them into the equation. I understand that mega-evolutions can come with new typing, however I feel they too closely resemble their previous form. Additionally, some starter Pokemon have yet to be given a mega-evolution (rest in peace my king, Torterra) so this would tip the scales unfairly during Question 1. GameFreak needs to get on top of that so we can have a Mega-Evolution comparison plot.</p></li>
+<li><p>For question 2, there is the dilemma on which type to include for dual-type Pokemon when assessing Question 2. While it could be seen as counting the same Pokemon twice, I will be counting each type individually for a Pokemon as I believe if they were typed “Water” and “Grass” then they should be counted in both areas. The plot’s purpose isn’t to be a Pokemon per region count, but amount of type per region. For example, Charizard is Fire Flying, and counting it as only Fire type would lose the Flying characteristic that is a big part of Charizard’s identify, design and moveset. For all the Pokemon where this is the case, I would be cutting out a large portion of the region’s type diversity. There are also some types where their second type is more reflective of the Pokemon (such as Flygon - how is this still Ground?) and if I chose the first type - this also would not represent the region’s diversity as well.</p></li>
+<li><p>For question 2, only a region’s regional dex is being considered in the “region” variable. National dex is a post-game can get messy with future generations having access to all the Pokemon while earlier regions would fall far behind</p></li>
+</ul></li>
 </ol>
 </section>
 <section id="weekly-project-plan-table" class="level2">
@@ -4957,66 +4955,74 @@ $ base_stat_total &lt;dbl&gt; 318, 405, 525, 309, 405, 534, 314, 405, 530, 195, 
 <span id="cb3-16"><a href="#cb3-16"></a><span class="co">  warning: false</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a><span class="co">---</span></span>
 <span id="cb3-18"><a href="#cb3-18"></a></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="in">```{r setup}</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#| label: load-pkgs</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#| message: false</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#| echo: false</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) </span>
-<span id="cb3-25"><a href="#cb3-25"></a>  <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb3-26"><a href="#cb3-26"></a></span>
-<span id="cb3-27"><a href="#cb3-27"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,scales,glue,scico,readr,dplyr, hms) </span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="in">```</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="fu">## Dataset</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="in">```{r}</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#| label: load-pkgs</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#| message: false</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#| echo: false</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) </span>
+<span id="cb3-27"><a href="#cb3-27"></a>  <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb3-28"><a href="#cb3-28"></a></span>
+<span id="cb3-29"><a href="#cb3-29"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, scales, glue, scico, hms) </span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="in">```</span></span>
 <span id="cb3-31"><a href="#cb3-31"></a></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="in">```{r extraction and glimpse}</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#| label: load-dataset</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#| message: false</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#Extracting dataset from git</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a>pokemon_df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv&#39;</span>)</span>
-<span id="cb3-38"><a href="#cb3-38"></a></span>
-<span id="cb3-39"><a href="#cb3-39"></a>pokemon_df <span class="sc">|&gt;</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a>  </span>
-<span id="cb3-41"><a href="#cb3-41"></a>  <span class="co">#Calculating base stat total which is a general guideline to a Pokemon&#39;s overall strength. Sum of the six stat classes</span></span>
-<span id="cb3-42"><a href="#cb3-42"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb3-43"><a href="#cb3-43"></a>    <span class="at">base_stat_total =</span> (attack<span class="sc">+</span>defense<span class="sc">+</span>special_attack<span class="sc">+</span>special_defense<span class="sc">+</span>speed<span class="sc">+</span>hp)</span>
-<span id="cb3-44"><a href="#cb3-44"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a>  <span class="fu">glimpse</span>() <span class="co">#checking the data</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a></span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="in">```</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a></span>
-<span id="cb3-49"><a href="#cb3-49"></a>The dataset that I am pulling from is the TidyTuesday &quot;Pokemon&quot; set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on.</span>
-<span id="cb3-50"><a href="#cb3-50"></a></span>
-<span id="cb3-51"><a href="#cb3-51"></a>The reason this set stuck out to me so much is that I was a huge fan growing up and recently got back into the series as a part of a nostalgia phase. What I enjoy most about the scope of this data set is it nearly covers the entire span of the series in which I played (Generations 1 to Generation 6, with the exception of Generation 7). The series has since continued up to Generation 9, but I have no clue on anything related to the later generations. This project is fueled out of a love for the games and the first question is certainly something that younger me would have wanted answered but lacked the data wrangling and visualizing knowledge. Going into this project, I certainly wanted to enjoy working on it and I&#39;m very confident I&#39;ll get that with this set!</span>
-<span id="cb3-52"><a href="#cb3-52"></a></span>
-<span id="cb3-53"><a href="#cb3-53"></a><span class="fu">## Questions</span></span>
-<span id="cb3-54"><a href="#cb3-54"></a></span>
-<span id="cb3-55"><a href="#cb3-55"></a><span class="ss">1.  </span>**Which starter Pokemon is the best choice (statistically) overall and by type?** This will look at base stat totals and be split between the three evolutions and types of starters the player can encounter. This question extends not just at the starting evolution but will be visualized across all three stages and will distinguish between the Pokemon&#39;s type. I noted &quot;statistically&quot; in my question, as there are subjective aspects such as move sets and key game battles being prioritized over others. These cannot be quantified without my own biased opinions or a data set (not found), so it is certainly best left out.</span>
-<span id="cb3-56"><a href="#cb3-56"></a></span>
-<span id="cb3-57"><a href="#cb3-57"></a>    If you are unfamilar with the franchise, starter Pokemon are given to the player from the get-go with the player having to choose between a select three (fire, water, and grass type) for each generation (ex. Gen 1 had Charmander, Squirtle, and Bulbasaur).</span>
-<span id="cb3-58"><a href="#cb3-58"></a></span>
-<span id="cb3-59"><a href="#cb3-59"></a><span class="ss">2.  </span>**What is the type diversity across the seven generations and their respective regions?** The games take place in several places across the Pokemon world that the player journeys through. Each region has returning and new Pokemon alike and are based off various regions of either Japan or the world. For example, the Hoenn region (setting for Generation 3) is associated with a tropical climate. The question will be looking at how many of each type are within each region, so one would expect to see Water and Grass type Pokemon house a majority of the Hoenn region&#39;s Pokedex (database used in the games) if it is in fact tropical.</span>
-<span id="cb3-60"><a href="#cb3-60"></a></span>
-<span id="cb3-61"><a href="#cb3-61"></a>    Again if you are unfamiliar with the series and how the games work, Pokemon have one or two assigned types that characterizes them and is an essential game mechanic which determines their resistances, strengths and weaknesses. I mentioned Water before and this would be associated with aquatic species.</span>
-<span id="cb3-62"><a href="#cb3-62"></a></span>
-<span id="cb3-63"><a href="#cb3-63"></a><span class="fu">## Analysis plan</span></span>
-<span id="cb3-64"><a href="#cb3-64"></a></span>
-<span id="cb3-65"><a href="#cb3-65"></a><span class="ss">1.  </span>To answer the first question: I&#39;ll first have to make a static tibble or use a filter on the data that only includes the 21 starters across seven generations and their evolutions (total of 63 Pokemon). Then, using the calculated base_stat_total, I will plot how they compare Other variables would include type_1 and a new evolution variable &quot;evo_stage&quot; which I plan on integrating. These two, in tandem, will introduce the variables necessary for splitting up the data and visualize the three stages starter into separate plots on top of each other, rather than all 63 data points being clustered together. With type allowing for color visuals to make them distinct. This will help to answer a few questions such as &quot;which is best overall&quot;, &quot;which is the best of X type&quot;, and so on - not just the overall question I&#39;m posing in the previous section.</span>
-<span id="cb3-66"><a href="#cb3-66"></a></span>
-<span id="cb3-67"><a href="#cb3-67"></a><span class="ss">2.  </span>The first step is to group each Pokemon into their associated region using a new variable aptly called &quot;region&quot;. I have yet to find an external database that can provide this, however doing some research I can use the Pokemon&#39;s IDs to auto group them into the regions using &quot;case_when&quot;. I love the second question so I&#39;ll certainly put in the effort! From there, it is a matter of using type_1 and type_2 to gather the amount of each type there is in a region. Then I would plot this visually on one plot with the types being the x-axis and then a density point plot where the regions are displayed.</span>
-<span id="cb3-68"><a href="#cb3-68"></a></span>
-<span id="cb3-69"><a href="#cb3-69"></a><span class="fu">## Weekly Project Plan Table</span></span>
-<span id="cb3-70"><a href="#cb3-70"></a></span>
-<span id="cb3-71"><a href="#cb3-71"></a><span class="pp">|</span> Task Name <span class="pp">|</span> Status <span class="pp">|</span> Due <span class="pp">|</span> Priority <span class="pp">|</span> Summary <span class="pp">|</span></span>
-<span id="cb3-72"><a href="#cb3-72"></a><span class="pp">|----|----|----|----|----|</span></span>
-<span id="cb3-73"><a href="#cb3-73"></a><span class="pp">|</span> Finish Proposal <span class="pp">|</span> In Work <span class="pp">|</span> 6/17/2026 <span class="pp">|</span> High <span class="pp">|</span> Incorporate comments from peer reviewers and complete final Git push <span class="pp">|</span></span>
-<span id="cb3-74"><a href="#cb3-74"></a><span class="pp">|</span> Complete Q1 <span class="pp">|</span> Not started <span class="pp">|</span> 6/20/2026 <span class="pp">|</span> Moderate <span class="pp">|</span> Write code, edit visualization, and complete analysis to answer Question 1 <span class="pp">|</span></span>
-<span id="cb3-75"><a href="#cb3-75"></a><span class="pp">|</span> Complete Q2 <span class="pp">|</span> Not started <span class="pp">|</span> 6/21/2026 <span class="pp">|</span> Moderate <span class="pp">|</span> Write code, edit visualization, and complete analysis to answer Question 2 <span class="pp">|</span></span>
-<span id="cb3-76"><a href="#cb3-76"></a><span class="pp">|</span> Package Slides <span class="pp">|</span> Not started <span class="pp">|</span> 6/26/2026 <span class="pp">|</span> Moderate <span class="pp">|</span> Construct the presentation slides using the work answering Questions 1 and 2 <span class="pp">|</span></span>
-<span id="cb3-77"><a href="#cb3-77"></a><span class="pp">|</span> Record Presentation <span class="pp">|</span> Not started <span class="pp">|</span> 6/26/2026 <span class="pp">|</span> Low <span class="pp">|</span> Record the project presentation <span class="pp">|</span></span>
-<span id="cb3-78"><a href="#cb3-78"></a><span class="pp">|</span> Finish Write-Up <span class="pp">|</span> Not started <span class="pp">|</span> 6/28/2026 <span class="pp">|</span> High <span class="pp">|</span> Complete all work necessary for the final project write-up <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="fu">## Dataset</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="in">```{r}</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#| label: load-dataset</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#| message: false</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a></span>
+<span id="cb3-40"><a href="#cb3-40"></a><span class="co"># Data saved from gitpage locally. Extracting dataset</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a>pokemon_df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;data/pokemon_df.csv&#39;</span>)</span>
+<span id="cb3-42"><a href="#cb3-42"></a></span>
+<span id="cb3-43"><a href="#cb3-43"></a>pokemon_df <span class="sc">|&gt;</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a>  </span>
+<span id="cb3-45"><a href="#cb3-45"></a>  <span class="co"># Calculating base stat total which is a general guideline to a Pokemon&#39;s overall strength. Sum of the six stat classes</span></span>
+<span id="cb3-46"><a href="#cb3-46"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-47"><a href="#cb3-47"></a>    <span class="at">base_stat_total =</span> (attack <span class="sc">+</span> defense <span class="sc">+</span> special_attack <span class="sc">+</span> special_defense <span class="sc">+</span> speed <span class="sc">+</span> hp)</span>
+<span id="cb3-48"><a href="#cb3-48"></a>  ) </span>
+<span id="cb3-49"><a href="#cb3-49"></a></span>
+<span id="cb3-50"><a href="#cb3-50"></a><span class="in">```</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a></span>
+<span id="cb3-52"><a href="#cb3-52"></a>The dataset that I am pulling from is the TidyTuesday &quot;Pokemon&quot; set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on.</span>
+<span id="cb3-53"><a href="#cb3-53"></a></span>
+<span id="cb3-54"><a href="#cb3-54"></a>The reason this set stuck out to me so much is that I was a huge fan growing up and recently got back into the series as a part of a nostalgia phase. What I enjoy most about the scope of this data set is it nearly covers the entire span of the series in which I played (Generations 1 to Generation 6, with the exception of Generation 7). The series has since continued up to Generation 9, but I have no clue on anything related to the later generations. This project is fueled out of a love for the games and the first question is certainly something that younger me would have wanted answered but lacked the data wrangling and visualizing knowledge. Going into this project, I certainly wanted to enjoy working on it and I&#39;m very confident I&#39;ll get that with this set!</span>
+<span id="cb3-55"><a href="#cb3-55"></a></span>
+<span id="cb3-56"><a href="#cb3-56"></a><span class="fu">## Questions</span></span>
+<span id="cb3-57"><a href="#cb3-57"></a></span>
+<span id="cb3-58"><a href="#cb3-58"></a><span class="ss">1.  </span>**Which starter Pokemon is the best choice (statistically) overall and by type?** This will look at base stat totals and be split between the three evolutions and types of starters the player can encounter. This question extends not just at the starting evolution but will be visualized across all three stages and will distinguish between the Pokemon&#39;s type. I noted &quot;statistically&quot; in my question, as there are subjective aspects such as move sets and key game battles being prioritized over others. These cannot be quantified without my own biased opinions or a data set (not found), so it is certainly best left out. Overall, we&#39;ll also find out how well GameFreak (developers of Pokemon) balances their starters.</span>
+<span id="cb3-59"><a href="#cb3-59"></a></span>
+<span id="cb3-60"><a href="#cb3-60"></a>    If you are unfamilar with the franchise, starter Pokemon are given to the player from the get-go with the player having to choose between a select three (fire, water, and grass type) for each generation (ex. Gen 1 had Charmander, Squirtle, and Bulbasaur).</span>
+<span id="cb3-61"><a href="#cb3-61"></a></span>
+<span id="cb3-62"><a href="#cb3-62"></a><span class="ss">2.  </span>**What is the type diversity across the seven generations and their respective regions?** The games take place in several places or &quot;regions&quot; across the Pokemon world that the player journeys through. Each region has returning and new Pokemon alike and are based off various regions of either Japan or the world. For example, the Unova region (setting for Generation 5) was based off the United State&#39;s New York City (only NYC doesn&#39;t have a giant desert to the north of it!). The question will be looking at how many of each type are within each region, and this can be interesting to see how GameFreak has balanced the regions as the series went on.</span>
+<span id="cb3-63"><a href="#cb3-63"></a></span>
+<span id="cb3-64"><a href="#cb3-64"></a>    Again if you are unfamiliar with the series and how the games work, Pokemon have one or two assigned types that characterizes them and is an essential game mechanic which determines their resistances, strengths and weaknesses. Some Pokemon are mono-typed and some can have two types associated to them.</span>
+<span id="cb3-65"><a href="#cb3-65"></a></span>
+<span id="cb3-66"><a href="#cb3-66"></a><span class="fu">## Analysis plan</span></span>
+<span id="cb3-67"><a href="#cb3-67"></a></span>
+<span id="cb3-68"><a href="#cb3-68"></a><span class="ss">1.  </span>To answer the first question: I&#39;ll first have to utilize a &quot;case_when&quot; script to mutate a new &quot;starter&quot; variable that will classify my 63 starter Pokemon as starters. &quot;starters&quot; will be a Yes/No chr variable. After this I can use a filter on the data to get the desired data set for this question using &quot;starter&quot;. Then, using the calculated base_stat_total, I will plot how they compare. Other variables would include type_1 and a new evolution variable &quot;evo_stage&quot; which I plan on integrating through manual input into the dataset. These two, in tandem, will introduce the variables necessary for splitting up the data and visualizing the three stages starter into separate plots on top of each other, rather than all 63 data points being clustered together. With type allowing for color visuals to make them distinct. This will help to answer a few questions such as &quot;which is best overall&quot;, &quot;which is the best of X type&quot;, and so on - not just the overall question I&#39;m posing in the previous section.</span>
+<span id="cb3-69"><a href="#cb3-69"></a></span>
+<span id="cb3-70"><a href="#cb3-70"></a><span class="ss">2.  </span>The first step is to group each Pokemon into their associated region using a new variable aptly called &quot;region&quot;. I have yet to find an external database that can provide this, however doing some research I can use the Pokemon&#39;s IDs to auto group them into the regions using &quot;case_when&quot;. I love the second question so I&#39;ll certainly put in the effort! From there, it is a matter of using type_1 and type_2 to gather the amount of each type there is in a region. Then I would plot this visually on one plot with the types being the x-axis and then vertically oriented scatter plots of the regions above each type. With there being seven regions, the various colors and shapes at my disposal should allow for easy identification.</span>
+<span id="cb3-71"><a href="#cb3-71"></a></span>
+<span id="cb3-72"><a href="#cb3-72"></a>    Some disclaimers on the above questions:</span>
+<span id="cb3-73"><a href="#cb3-73"></a></span>
+<span id="cb3-74"><a href="#cb3-74"></a><span class="ss">    - </span>For both questions, I will be removing Mega-Evolutions from the dataset. To me, these are pure duplicates of their base forms so I do not want to double count them into the equation. I understand that mega-evolutions can come with new typing, however I feel they too closely resemble their previous form. Additionally, some starter Pokemon have yet to be given a mega-evolution (rest in peace my king, Torterra) so this would tip the scales unfairly during Question 1. GameFreak needs to get on top of that so we can have a Mega-Evolution comparison plot.</span>
+<span id="cb3-75"><a href="#cb3-75"></a></span>
+<span id="cb3-76"><a href="#cb3-76"></a><span class="ss">    - </span>For question 2, there is the dilemma on which type to include for dual-type Pokemon when assessing Question 2. While it could be seen as counting the same Pokemon twice, I will be counting each type individually for a Pokemon as I believe if they were typed &quot;Water&quot; and &quot;Grass&quot; then they should be counted in both areas. The plot&#39;s purpose isn&#39;t to be a Pokemon per region count, but amount of type per region. For example, Charizard is Fire Flying, and counting it as only Fire type would lose the Flying characteristic that is a big part of Charizard&#39;s identify, design and moveset. For all the Pokemon where this is the case, I would be cutting out a large portion of the region&#39;s type diversity. There are also some types where their second type is more reflective of the Pokemon (such as Flygon - how is this still Ground?) and if I chose the first type - this also would not represent the region&#39;s diversity as well.</span>
+<span id="cb3-77"><a href="#cb3-77"></a></span>
+<span id="cb3-78"><a href="#cb3-78"></a><span class="ss">    - </span>For question 2, only a region&#39;s regional dex is being considered in the &quot;region&quot; variable. National dex is a post-game can get messy with future generations having access to all the Pokemon while earlier regions would fall far behind</span>
+<span id="cb3-79"><a href="#cb3-79"></a></span>
+<span id="cb3-80"><a href="#cb3-80"></a><span class="fu">## Weekly Project Plan Table</span></span>
+<span id="cb3-81"><a href="#cb3-81"></a></span>
+<span id="cb3-82"><a href="#cb3-82"></a><span class="pp">|</span> Task Name <span class="pp">|</span> Status <span class="pp">|</span> Due <span class="pp">|</span> Priority <span class="pp">|</span> Summary <span class="pp">|</span></span>
+<span id="cb3-83"><a href="#cb3-83"></a><span class="pp">|----|----|----|----|----|</span></span>
+<span id="cb3-84"><a href="#cb3-84"></a><span class="pp">|</span> Finish Proposal <span class="pp">|</span> In Work <span class="pp">|</span> 6/17/2026 <span class="pp">|</span> High <span class="pp">|</span> Incorporate comments from peer reviewers and complete final Git push <span class="pp">|</span></span>
+<span id="cb3-85"><a href="#cb3-85"></a><span class="pp">|</span> Complete Q1 <span class="pp">|</span> Not started <span class="pp">|</span> 6/20/2026 <span class="pp">|</span> Moderate <span class="pp">|</span> Write code, edit visualization, and complete analysis to answer Question 1 <span class="pp">|</span></span>
+<span id="cb3-86"><a href="#cb3-86"></a><span class="pp">|</span> Complete Q2 <span class="pp">|</span> Not started <span class="pp">|</span> 6/21/2026 <span class="pp">|</span> Moderate <span class="pp">|</span> Write code, edit visualization, and complete analysis to answer Question 2 <span class="pp">|</span></span>
+<span id="cb3-87"><a href="#cb3-87"></a><span class="pp">|</span> Package Slides <span class="pp">|</span> Not started <span class="pp">|</span> 6/26/2026 <span class="pp">|</span> Moderate <span class="pp">|</span> Construct the presentation slides using the work answering Questions 1 and 2 <span class="pp">|</span></span>
+<span id="cb3-88"><a href="#cb3-88"></a><span class="pp">|</span> Record Presentation <span class="pp">|</span> Not started <span class="pp">|</span> 6/26/2026 <span class="pp">|</span> Low <span class="pp">|</span> Record the project presentation <span class="pp">|</span></span>
+<span id="cb3-89"><a href="#cb3-89"></a><span class="pp">|</span> Finish Write-Up <span class="pp">|</span> Not started <span class="pp">|</span> 6/28/2026 <span class="pp">|</span> High <span class="pp">|</span> Complete all work necessary for the final project write-up <span class="pp">|</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
