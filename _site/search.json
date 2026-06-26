@@ -4,14 +4,14 @@
     "href": "proposal.html",
     "title": "INFO526 Final Project Proposal",
     "section": "",
-    "text": "# Data saved from gitpage locally. Extracting dataset\npokemon_df &lt;- readr::read_csv('data/pokemon_df.csv')\n\npokemon_df |&gt;\n  \n  # Calculating base stat total which is a general guideline to a Pokemon's overall strength. Sum of the six stat classes\n  mutate(\n    base_stat_total = (attack + defense + special_attack + special_defense + speed + hp)\n  ) \n\n# A tibble: 949 × 23\n      id pokemon    species_id height weight base_experience type_1 type_2    hp\n   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;\n 1     1 bulbasaur           1    0.7    6.9              64 grass  poison    45\n 2     2 ivysaur             2    1     13               142 grass  poison    60\n 3     3 venusaur            3    2    100               236 grass  poison    80\n 4     4 charmander          4    0.6    8.5              62 fire   &lt;NA&gt;      39\n 5     5 charmeleon          5    1.1   19               142 fire   &lt;NA&gt;      58\n 6     6 charizard           6    1.7   90.5             240 fire   flying    78\n 7     7 squirtle            7    0.5    9                63 water  &lt;NA&gt;      44\n 8     8 wartortle           8    1     22.5             142 water  &lt;NA&gt;      59\n 9     9 blastoise           9    1.6   85.5             239 water  &lt;NA&gt;      79\n10    10 caterpie           10    0.3    2.9              39 bug    &lt;NA&gt;      45\n# ℹ 939 more rows\n# ℹ 14 more variables: attack &lt;dbl&gt;, defense &lt;dbl&gt;, special_attack &lt;dbl&gt;,\n#   special_defense &lt;dbl&gt;, speed &lt;dbl&gt;, color_1 &lt;chr&gt;, color_2 &lt;chr&gt;,\n#   color_f &lt;chr&gt;, egg_group_1 &lt;chr&gt;, egg_group_2 &lt;chr&gt;, url_icon &lt;chr&gt;,\n#   generation_id &lt;dbl&gt;, url_image &lt;chr&gt;, base_stat_total &lt;dbl&gt;\n\n\nThe dataset that I am pulling from is the TidyTuesday “Pokemon” set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on.\nThe reason this set stuck out to me so much is that I was a huge fan growing up and recently got back into the series as a part of a nostalgia phase. What I enjoy most about the scope of this data set is it nearly covers the entire span of the series in which I played (Generations 1 to Generation 6, with the exception of Generation 7). The series has since continued up to Generation 9, but I have no clue on anything related to the later generations. This project is fueled out of a love for the games and the first question is certainly something that younger me would have wanted answered but lacked the data wrangling and visualizing knowledge. Going into this project, I certainly wanted to enjoy working on it and I’m very confident I’ll get that with this set!"
+    "text": "# Data saved from gitpage locally. Extracting dataset\npokemon_df &lt;- readr::read_csv('data/pokemon_df.csv')\n\npokemon_df |&gt;\n  \n  # Calculating base stat total which is a general guideline to a Pokemon's overall strength. Sum of the six stat classes\n  mutate(\n    base_stat_total = (attack + defense + special_attack + special_defense + speed + hp)) \n\n# A tibble: 949 × 23\n      id pokemon    species_id height weight base_experience type_1 type_2    hp\n   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;\n 1     1 bulbasaur           1    0.7    6.9              64 grass  poison    45\n 2     2 ivysaur             2    1     13               142 grass  poison    60\n 3     3 venusaur            3    2    100               236 grass  poison    80\n 4     4 charmander          4    0.6    8.5              62 fire   &lt;NA&gt;      39\n 5     5 charmeleon          5    1.1   19               142 fire   &lt;NA&gt;      58\n 6     6 charizard           6    1.7   90.5             240 fire   flying    78\n 7     7 squirtle            7    0.5    9                63 water  &lt;NA&gt;      44\n 8     8 wartortle           8    1     22.5             142 water  &lt;NA&gt;      59\n 9     9 blastoise           9    1.6   85.5             239 water  &lt;NA&gt;      79\n10    10 caterpie           10    0.3    2.9              39 bug    &lt;NA&gt;      45\n# ℹ 939 more rows\n# ℹ 14 more variables: attack &lt;dbl&gt;, defense &lt;dbl&gt;, special_attack &lt;dbl&gt;,\n#   special_defense &lt;dbl&gt;, speed &lt;dbl&gt;, color_1 &lt;chr&gt;, color_2 &lt;chr&gt;,\n#   color_f &lt;chr&gt;, egg_group_1 &lt;chr&gt;, egg_group_2 &lt;chr&gt;, url_icon &lt;chr&gt;,\n#   generation_id &lt;dbl&gt;, url_image &lt;chr&gt;, base_stat_total &lt;dbl&gt;\n\n\nThe dataset that I am pulling from is the TidyTuesday “Pokemon” set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on.\nThe reason this set stuck out to me so much is that I was a huge fan growing up and recently got back into the series as a part of a nostalgia phase. What I enjoy most about the scope of this data set is it nearly covers the entire span of the series in which I played (Generations 1 to Generation 6, with the exception of Generation 7). The series has since continued up to Generation 9, but I have no clue on anything related to the later generations. This project is fueled out of a love for the games and the first question is certainly something that younger me would have wanted answered but lacked the data wrangling and visualizing knowledge. Going into this project, I certainly wanted to enjoy working on it and I’m very confident I’ll get that with this set!"
   },
   {
     "objectID": "proposal.html#dataset",
     "href": "proposal.html#dataset",
     "title": "INFO526 Final Project Proposal",
     "section": "",
-    "text": "# Data saved from gitpage locally. Extracting dataset\npokemon_df &lt;- readr::read_csv('data/pokemon_df.csv')\n\npokemon_df |&gt;\n  \n  # Calculating base stat total which is a general guideline to a Pokemon's overall strength. Sum of the six stat classes\n  mutate(\n    base_stat_total = (attack + defense + special_attack + special_defense + speed + hp)\n  ) \n\n# A tibble: 949 × 23\n      id pokemon    species_id height weight base_experience type_1 type_2    hp\n   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;\n 1     1 bulbasaur           1    0.7    6.9              64 grass  poison    45\n 2     2 ivysaur             2    1     13               142 grass  poison    60\n 3     3 venusaur            3    2    100               236 grass  poison    80\n 4     4 charmander          4    0.6    8.5              62 fire   &lt;NA&gt;      39\n 5     5 charmeleon          5    1.1   19               142 fire   &lt;NA&gt;      58\n 6     6 charizard           6    1.7   90.5             240 fire   flying    78\n 7     7 squirtle            7    0.5    9                63 water  &lt;NA&gt;      44\n 8     8 wartortle           8    1     22.5             142 water  &lt;NA&gt;      59\n 9     9 blastoise           9    1.6   85.5             239 water  &lt;NA&gt;      79\n10    10 caterpie           10    0.3    2.9              39 bug    &lt;NA&gt;      45\n# ℹ 939 more rows\n# ℹ 14 more variables: attack &lt;dbl&gt;, defense &lt;dbl&gt;, special_attack &lt;dbl&gt;,\n#   special_defense &lt;dbl&gt;, speed &lt;dbl&gt;, color_1 &lt;chr&gt;, color_2 &lt;chr&gt;,\n#   color_f &lt;chr&gt;, egg_group_1 &lt;chr&gt;, egg_group_2 &lt;chr&gt;, url_icon &lt;chr&gt;,\n#   generation_id &lt;dbl&gt;, url_image &lt;chr&gt;, base_stat_total &lt;dbl&gt;\n\n\nThe dataset that I am pulling from is the TidyTuesday “Pokemon” set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on.\nThe reason this set stuck out to me so much is that I was a huge fan growing up and recently got back into the series as a part of a nostalgia phase. What I enjoy most about the scope of this data set is it nearly covers the entire span of the series in which I played (Generations 1 to Generation 6, with the exception of Generation 7). The series has since continued up to Generation 9, but I have no clue on anything related to the later generations. This project is fueled out of a love for the games and the first question is certainly something that younger me would have wanted answered but lacked the data wrangling and visualizing knowledge. Going into this project, I certainly wanted to enjoy working on it and I’m very confident I’ll get that with this set!"
+    "text": "# Data saved from gitpage locally. Extracting dataset\npokemon_df &lt;- readr::read_csv('data/pokemon_df.csv')\n\npokemon_df |&gt;\n  \n  # Calculating base stat total which is a general guideline to a Pokemon's overall strength. Sum of the six stat classes\n  mutate(\n    base_stat_total = (attack + defense + special_attack + special_defense + speed + hp)) \n\n# A tibble: 949 × 23\n      id pokemon    species_id height weight base_experience type_1 type_2    hp\n   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;\n 1     1 bulbasaur           1    0.7    6.9              64 grass  poison    45\n 2     2 ivysaur             2    1     13               142 grass  poison    60\n 3     3 venusaur            3    2    100               236 grass  poison    80\n 4     4 charmander          4    0.6    8.5              62 fire   &lt;NA&gt;      39\n 5     5 charmeleon          5    1.1   19               142 fire   &lt;NA&gt;      58\n 6     6 charizard           6    1.7   90.5             240 fire   flying    78\n 7     7 squirtle            7    0.5    9                63 water  &lt;NA&gt;      44\n 8     8 wartortle           8    1     22.5             142 water  &lt;NA&gt;      59\n 9     9 blastoise           9    1.6   85.5             239 water  &lt;NA&gt;      79\n10    10 caterpie           10    0.3    2.9              39 bug    &lt;NA&gt;      45\n# ℹ 939 more rows\n# ℹ 14 more variables: attack &lt;dbl&gt;, defense &lt;dbl&gt;, special_attack &lt;dbl&gt;,\n#   special_defense &lt;dbl&gt;, speed &lt;dbl&gt;, color_1 &lt;chr&gt;, color_2 &lt;chr&gt;,\n#   color_f &lt;chr&gt;, egg_group_1 &lt;chr&gt;, egg_group_2 &lt;chr&gt;, url_icon &lt;chr&gt;,\n#   generation_id &lt;dbl&gt;, url_image &lt;chr&gt;, base_stat_total &lt;dbl&gt;\n\n\nThe dataset that I am pulling from is the TidyTuesday “Pokemon” set. This set contains all Pokemon from the original 151 Generation 1 group up to Generation 7 which now includes over 800 Pokemon! The data set includes qualitative properties of each Pokemon such as their height, weight, and color. Then an array of their battling information like types (type_1 and type_2), attack/defense, special attack/defense, health points (hp), speed and so on.\nThe reason this set stuck out to me so much is that I was a huge fan growing up and recently got back into the series as a part of a nostalgia phase. What I enjoy most about the scope of this data set is it nearly covers the entire span of the series in which I played (Generations 1 to Generation 6, with the exception of Generation 7). The series has since continued up to Generation 9, but I have no clue on anything related to the later generations. This project is fueled out of a love for the games and the first question is certainly something that younger me would have wanted answered but lacked the data wrangling and visualizing knowledge. Going into this project, I certainly wanted to enjoy working on it and I’m very confident I’ll get that with this set!"
   },
   {
     "objectID": "proposal.html#questions",
@@ -32,49 +32,49 @@
     "href": "index.html",
     "title": "Gotta Visualize ’Em All!",
     "section": "",
-    "text": "Add project abstract here."
+    "text": "This project will jump into the world of Pokemon through the ‘Pokemon’ dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon? While the aforementioned questions will be answered, we’ll also discover how well the Pokemon developers, GameFreak, balanced not just the partner Pokemon that accompanies us throughout our journeys, but also the available Pokemon that we’ll meet through a given region."
   },
   {
     "objectID": "index.html#abstract",
     "href": "index.html#abstract",
     "title": "Gotta Visualize ’Em All!",
     "section": "",
-    "text": "Add project abstract here."
+    "text": "This project will jump into the world of Pokemon through the ‘Pokemon’ dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon? While the aforementioned questions will be answered, we’ll also discover how well the Pokemon developers, GameFreak, balanced not just the partner Pokemon that accompanies us throughout our journeys, but also the available Pokemon that we’ll meet through a given region."
   },
   {
     "objectID": "presentation.html#quarto",
     "href": "presentation.html#quarto",
     "title": "Gotta Visualize ’Em All!",
-    "section": "Quarto",
-    "text": "Quarto\n\nThe presentation is created using the Quarto CLI\n## sets the start of a new slide"
+    "section": "",
+    "text": "The presentation is created using the Quarto CLI\n## sets the start of a new slide"
   },
   {
     "objectID": "presentation.html#layouts",
     "href": "presentation.html#layouts",
     "title": "Gotta Visualize ’Em All!",
-    "section": "Layouts",
-    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\nlike\nthis\n\nAnd add footnotes"
+    "section": "",
+    "text": "You can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis"
   },
   {
     "objectID": "presentation.html#code",
     "href": "presentation.html#code",
     "title": "Gotta Visualize ’Em All!",
-    "section": "Code",
-    "text": "Code\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
+    "section": "",
+    "text": "# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
   },
   {
     "objectID": "presentation.html#plots",
     "href": "presentation.html#plots",
     "title": "Gotta Visualize ’Em All!",
-    "section": "Plots",
-    "text": "Plots"
+    "section": "",
+    "text": "Warning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`)."
   },
   {
     "objectID": "presentation.html#plot-and-text",
     "href": "presentation.html#plot-and-text",
     "title": "Gotta Visualize ’Em All!",
-    "section": "Plot and text",
-    "text": "Plot and text\n\n\n\nSome text\ngoes here"
+    "section": "",
+    "text": "Some text\ngoes here"
   },
   {
     "objectID": "presentation.html#tables",
@@ -88,7 +88,7 @@
     "href": "presentation.html#images",
     "title": "Gotta Visualize ’Em All!",
     "section": "Images",
-    "text": "Images\n\nImage credit: Danielle Navarro, Percolate."
+    "text": "Images\n\n\n\nImage credit: Danielle Navarro, Percolate."
   },
   {
     "objectID": "presentation.html#math-expressions",
@@ -114,14 +114,14 @@
   {
     "objectID": "presentation.html",
     "href": "presentation.html",
-    "title": "Project title",
+    "title": "Gotta Visualize ’Em All!",
     "section": "",
-    "text": "The presentation is created using the Quarto CLI\n## sets the start of a new slide\n\n\n\n\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis\n\n\n\n\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSome text\ngoes here"
+    "text": "The presentation is created using the Quarto CLI\n## sets the start of a new slide\n\n\n\n\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis\n\n\n\n\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;\n\n\n\n\n\n\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSome text\ngoes here"
   },
   {
     "objectID": "presentation.html#footnotes",
     "href": "presentation.html#footnotes",
-    "title": "Project title",
+    "title": "Gotta Visualize ’Em All!",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nAnd add footnotes↩︎"
   },

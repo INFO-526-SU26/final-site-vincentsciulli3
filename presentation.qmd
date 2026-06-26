@@ -21,8 +21,7 @@ execute:
 #| include: false
 
 # Load packages here
-pacman::p_load(tidymodels,
-               tidyverse)
+pacman::p_load(tidymodels, tidyverse, readxl)
 
 ```
 
@@ -44,12 +43,24 @@ knitr::opts_chunk$set(
 
 ```{r}
 #| label: load-data
-#| include: false
-# Load data here
-data(mtcars)
-mtcars$speed <- mtcars$hp / mtcars$wt
+# #| include: false
+#| cache: true
 
-data("penguins")
+# Load data here
+
+pokemon <- read_excel("data/pokemon_df_filt.xlsx")
+
+pokemon <- pokemon |>
+  
+  mutate(
+
+    evo_stage = as.numeric(evo_stage),
+    base_stat_total = (attack + defense + special_attack + special_defense + speed + hp)) |>
+  
+  # Filtering out the variables I will not be using
+  select(-c("height", "weight", "species_id", "base_experience", "color_1", "color_2", "color_f", "egg_group_1", "egg_group_2", "url_icon", "generation_id", "url_image"))
+
+
 ```
 
 # Using Quarto for presentations
@@ -88,6 +99,9 @@ model <- lm(mpg ~ speed, data = mtcars)
 model |> tidy()
 
 model |> glance()
+
+
+# https://bulbapedia.bulbagarden.net/wiki/Regional_Pok%C3%A9dex for regions data
 
 ```
 

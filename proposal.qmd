@@ -40,8 +40,7 @@ pokemon_df |>
   
   # Calculating base stat total which is a general guideline to a Pokemon's overall strength. Sum of the six stat classes
   mutate(
-    base_stat_total = (attack + defense + special_attack + special_defense + speed + hp)
-  ) 
+    base_stat_total = (attack + defense + special_attack + special_defense + speed + hp)) 
 
 ```
 
@@ -76,7 +75,7 @@ The reason this set stuck out to me so much is that I was a huge fan growing up 
 ## Weekly Project Plan Table
 
 | Task Name | Status | Due | Priority | Summary |
-|----|----|----|----|----|
+|---------------|---------------|---------------|---------------|---------------|
 | Finish Proposal | In Work | 6/17/2026 | High | Incorporate comments from peer reviewers and complete final Git push |
 | Complete Q1 | Not started | 6/20/2026 | Moderate | Write code, edit visualization, and complete analysis to answer Question 1 |
 | Complete Q2 | Not started | 6/21/2026 | Moderate | Write code, edit visualization, and complete analysis to answer Question 2 |
