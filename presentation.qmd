@@ -30,7 +30,6 @@ pacman::p_load(tidymodels, tidyverse, readxl, ggrepel)
 #| label: Loading data and general data wrangling
 #| include: false
 #| warning: false
-#| cache: true
 
 # Load data here
 # https://bulbapedia.bulbagarden.net/wiki/Regional_Pok%C3%A9dex for regions data
@@ -106,11 +105,10 @@ poke_table |>
 
 \*New variable added to dataset
 
-## Plot 1 : Which starter is best?
+## 
 
 ```{r}
 #| Label: Final Project Q1 - Which starter is best?
-#| cache: true
 
 # Extracting my starters data
 starters <- pokemon|>
@@ -169,27 +167,108 @@ starters |>
 
 - GameFreak has had varying balance ideologies across the generations. Mirrored approach in Gens 1, 2 and 4. Mid stage evolutions 5 out of 7 generations being identical in base stat total. Gen 7 being balanced across evolution stages.
 
-## Plot 2: Type diversity across regions
+## 
 
 ```{r}
-#| Label: Final Project Q2
+#| Label: Final Project Q2 Data Wrangling
 #| include: false
-#| cache: true
+
+pokemon_regions <- pokemon |>
+  
+  # Wrangling my data so that my types can be counted properly in upcoming steps before splitting regions
+  pivot_longer(
+    cols = c(type_1, type_2),
+    names_to = "primary/secondary",
+    values_to = "type"
+  )   |>
+  filter(!type == "NA")|> # Removes any rows of Pokemon that only had one type
+  
+
+#Ref https://search.r-project.org/CRAN/refmans/tidytable/html/separate_rows.html for separate_rows() 
+  separate_rows(region, sep =",\\s*") |>
+  
+  group_by(region, type) |> # Group by regions to get our region count and then group by type to get the type count
+    summarise(count = n(), .groups = "drop") |>
+  
+  # Factoring my regions so that they are plotted in order of generation
+  mutate(
+    region = str_trim(region),
+    region = factor(region, levels = c("Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola"))
+  )
+  
 
 
-penguins |>
-  mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-  geom_point()
-
-penguins |>
-  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot(linewidth = 0.75,
-               outlier.size = 2.5) +
-  theme_minimal(base_size = 15) +
-  theme(legend.key.size = unit(0.8, "cm"))
 
 
+```
+
+```{r}
+#| Label: Final Project Q2 Data Wrangling
+#| fig-height: 9
+
+pokemon_regions |>
+  
+  ggplot(aes(x = count, y = "", color = type))+
+  
+  facet_wrap(~region, scales = "free_x", ncol =1)+
+  
+  #Ref https://ggplot2.tidyverse.org/reference/position_jitter.html to help with overlap
+  geom_point(shape = "square", size = 3, position = position_jitter(width = 0, height = 0.28, seed = 3)) +
+  
+  # Label the count number under each dot
+  geom_text(aes(label = count), size = 2.8, color = "black", vjust = 3.2, show.legend = FALSE)+
+  
+  # Labeling
+  labs(
+    x = "Amount of Pokemon",
+    y = NULL,
+    title = "Type Diversity across regions",
+    subtitle = "Generations 1 through 7",
+    color = "Type",
+    caption = "Sources: 'Pokemon' dataset | TidyTuesday\nbulbapeida"
+  )+
+  
+  #Ref https://bulbapedia.bulbagarden.net/wiki/Help:Color_templates for color codes
+  scale_color_manual(values = c(
+    "#91A119", #Bug
+    "#624D4E", #Dark
+    "#5060E1", #Dragon
+    "#FAC000", #Electric
+    "#EF70EF", #Fairy
+    "#FF8000", #Fighting
+    "#E62829", #Fire
+    "#81B9EF", #Flying
+    "#704170", #Ghost
+    "#3FA129", #Grass
+    "#915121", #Ground
+    "#3DCEF3", #Ice
+    "#9FA19F", #Normal
+    "#9141CB", #Poison
+    "#EF4179", #Psychic
+    "#AFA981", #Rock
+    "#60A1B8", #Steel
+    "#2980EF" #Water
+  ))+
+  
+  
+  theme_bw() +
+  
+  theme(
+    
+    plot.title = element_text(size = 20, face = "bold"),
+    plot.subtitle = element_text(size = 14),
+    
+    legend.background = element_rect(color = "black"),
+    
+    axis.ticks.y = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    
+    strip.text = element_text(size=10, face = "bold"),
+    strip.background = element_rect(color="black"),
+    
+    plot.margin = margin(0,0,0,0)
+  )
 ```
 
 ## Plot 2 text
@@ -199,3 +278,5 @@ penguins |>
 - You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
 
 - But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+
+## References
