@@ -45,36 +45,36 @@
     "objectID": "presentation.html#quarto",
     "href": "presentation.html#quarto",
     "title": "Gotta Visualize ’Em All!",
-    "section": "",
-    "text": "The presentation is created using the Quarto CLI\n## sets the start of a new slide"
+    "section": "Quarto",
+    "text": "Quarto\n\nThe presentation is created using the Quarto CLI\n## sets the start of a new slide"
   },
   {
     "objectID": "presentation.html#layouts",
     "href": "presentation.html#layouts",
     "title": "Gotta Visualize ’Em All!",
-    "section": "",
-    "text": "You can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis"
+    "section": "Layouts",
+    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\nAnd add footnotes"
   },
   {
     "objectID": "presentation.html#code",
     "href": "presentation.html#code",
     "title": "Gotta Visualize ’Em All!",
-    "section": "",
-    "text": "# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
+    "section": "Code",
+    "text": "Code"
   },
   {
     "objectID": "presentation.html#plots",
     "href": "presentation.html#plots",
     "title": "Gotta Visualize ’Em All!",
-    "section": "",
-    "text": "Warning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`)."
+    "section": "Plots",
+    "text": "Plots"
   },
   {
     "objectID": "presentation.html#plot-and-text",
     "href": "presentation.html#plot-and-text",
     "title": "Gotta Visualize ’Em All!",
-    "section": "",
-    "text": "Some text\ngoes here"
+    "section": "Plot and text",
+    "text": "Plot and text"
   },
   {
     "objectID": "presentation.html#tables",
@@ -88,14 +88,14 @@
     "href": "presentation.html#images",
     "title": "Gotta Visualize ’Em All!",
     "section": "Images",
-    "text": "Images\n\n\n\nImage credit: Danielle Navarro, Percolate."
+    "text": "Images\n\nImage credit: KaihatsuYT on DeviantArt"
   },
   {
     "objectID": "presentation.html#math-expressions",
     "href": "presentation.html#math-expressions",
     "title": "Gotta Visualize ’Em All!",
     "section": "Math Expressions",
-    "text": "Math Expressions\nYou can write LaTeX math expressions inside a pair of dollar signs, e.g. $\\alpha+\\beta$ renders \\(\\alpha + \\beta\\). You can use the display style with double dollar signs:\n$$\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i$$\n\\[\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i\\]\nLimitations:\n\nThe source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting $$ must appear in the very beginning of a line, followed immediately by a non-space character, and the ending $$ must be at the end of a line, led by a non-space character;\nThere should not be spaces after the opening $ or before the closing $."
+    "text": "Math Expressions"
   },
   {
     "objectID": "presentation.html#feeling-adventurous",
@@ -131,5 +131,61 @@
     "title": "INFO526 Final Project Proposal",
     "section": "Weekly Project Plan Table",
     "text": "Weekly Project Plan Table\n\n\n\n\n\n\n\n\n\n\nTask Name\nStatus\nDue\nPriority\nSummary\n\n\n\n\nFinish Proposal\nIn Work\n6/17/2026\nHigh\nIncorporate comments from peer reviewers and complete final Git push\n\n\nComplete Q1\nNot started\n6/20/2026\nModerate\nWrite code, edit visualization, and complete analysis to answer Question 1\n\n\nComplete Q2\nNot started\n6/21/2026\nModerate\nWrite code, edit visualization, and complete analysis to answer Question 2\n\n\nPackage Slides\nNot started\n6/26/2026\nModerate\nConstruct the presentation slides using the work answering Questions 1 and 2\n\n\nRecord Presentation\nNot started\n6/26/2026\nLow\nRecord the project presentation\n\n\nFinish Write-Up\nNot started\n6/28/2026\nHigh\nComplete all work necessary for the final project write-up"
+  },
+  {
+    "objectID": "presentation.html#plot-1-which-starter-is-best",
+    "href": "presentation.html#plot-1-which-starter-is-best",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "Plot 1 : Which starter is best?",
+    "text": "Plot 1 : Which starter is best?"
+  },
+  {
+    "objectID": "presentation.html#section",
+    "href": "presentation.html#section",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "",
+    "text": "If we want to look at final evolutions specifically, Swampert looks like our champion! Outside of generations 5 and 7, there is a clear winner with Fire taking 4 out of 5!\nGameFreak has had varying balance ideologies across the generations. Mirrored approach in Gens 1, 2 and 4. Mid stage evolutions 5 out of 7 generations being identical in base stat total. Gen 7 being balanced across evolution stages."
+  },
+  {
+    "objectID": "presentation.html#introduction",
+    "href": "presentation.html#introduction",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "Introduction",
+    "text": "Introduction\nFor my INFO 526 final project, we’ll be jumping into the world of Pokemon to answer:\n\nWhich starter is the best, statistically, throughout the evolutionary stages?\nWhat does the type diversity look like through the various regions of Pokemon?\n\nWhile answering the above, we’ll also discover how well the Pokemon developers, GameFreak, balanced the games across generations."
+  },
+  {
+    "objectID": "presentation.html#dataset-peek",
+    "href": "presentation.html#dataset-peek",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "Dataset Peek",
+    "text": "Dataset Peek\n\n\n\n\n\nVariable\nClass\nDescription\n\n\n\n\nid\ninteger\nThe unique ID of each Pokemon.\n\n\npokemon\ncharacter\nThe name of each pokemon.\n\n\ntype_1\ncharacter\nThe primary type.\n\n\ntype_2\ncharacter\nThe secondary type.\n\n\nhp\ninteger\nThe HP (hit points).\n\n\nattack\ninteger\nThe attack points.\n\n\ndefense\ninteger\nThe defense points.\n\n\nspecial_attack\ninteger\nThe special attack points.\n\n\nspecial_defense\ninteger\nThe special defense points.\n\n\nspeed\ninteger\nThe speed.\n\n\ngeneration_id\ninteger\nThe generation ID of each Pokemon.\n\n\nstarter*\ncharacter\nIf the Pokemon is a starter or not.\n\n\nevo_stage*\ninteger\nWhich evolutionary stage is the given Pokemon.\n\n\nregion*\ncharacter\nList of region(s) where the given Pokemon is found in the regional Pokedex\n\n\nbase_stat_total*\ninteger\nSum of the hp, attack, defense, speed, special_attack, and special_defense variables\n\n\n\n\n\n*New variable added to dataset"
+  },
+  {
+    "objectID": "presentation.html#plot-2-type-diversity-across-regions",
+    "href": "presentation.html#plot-2-type-diversity-across-regions",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "Plot 2: Type diversity across regions",
+    "text": "Plot 2: Type diversity across regions"
+  },
+  {
+    "objectID": "presentation.html#conclusion-takeaways",
+    "href": "presentation.html#conclusion-takeaways",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "Conclusion & Takeaways",
+    "text": "Conclusion & Takeaways\n\nYou are welcomed to use the default styling of the slides. In fact, that’s what I expect majority of you will do. You will differentiate yourself with the content of your presentation.\nBut some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs."
+  },
+  {
+    "objectID": "presentation.html#plot-2-text",
+    "href": "presentation.html#plot-2-text",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "Plot 2 text",
+    "text": "Plot 2 text"
+  },
+  {
+    "objectID": "presentation.html#motivation",
+    "href": "presentation.html#motivation",
+    "title": "Gotta Visualize ’Em All!",
+    "section": "Motivation",
+    "text": "Motivation\nThis is a passion project as I have been a fan of the series for as long as I remember! The questions I’m answering are ones that “little me” would want to know as I have always been curious on those topics along with game balance in general!\n\nTurtwig “The Goat” James - Image credit: https://ar.inspiredpencil.com/pictures-2023/turtwig."
   }
 ]
