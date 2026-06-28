@@ -3,8 +3,7 @@ title: "Gotta Visualize 'Em All!"
 subtitle: "INFO 526 - Summer 2026 - Final Project"
 author: "Vincent Sciulli"
 title-slide-attributes:
-  data-background-image: images/mt_coronet_by_kaihatsuyt_ddc6te7-fullview.jpg
-  # https://www.deviantart.com/kaihatsuyt/art/Mt-Coronet-806533711 image credit
+  data-background-image: images/mt_coronet_by_kaihatsuyt_ddc6te7-fullview.jpg #Ref [1] image credit
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -32,7 +31,7 @@ pacman::p_load(tidymodels, tidyverse, readxl, ggrepel)
 #| warning: false
 
 # Load data here
-# https://bulbapedia.bulbagarden.net/wiki/Regional_Pok%C3%A9dex for regions data
+# Ref [2] for starters, evo_stage, and region data
 pokemon <- read_excel("data/pokemon_df_filt.xlsx")
 
 pokemon <- pokemon |>
@@ -60,7 +59,7 @@ While answering the above, we'll get some insight on how well the Pokemon develo
 
 This is a passion project as I have been a fan of the series for as long as I remember! The questions I'm answering are ones that "little me" would want to know as I have always been curious on those topics along with game balance in general!
 
-![Turtwig "The Goat" James - Image credit: https://ar.inspiredpencil.com/pictures-2023/turtwig.](images/goat.jpg){fig-align="center" width="200"}
+![Turtwig "The Goat" James - Image credit: Ref \[3\]](images/goat.jpg){fig-align="center" width="200"}
 
 ## Dataset Peek
 
@@ -68,7 +67,7 @@ This is a passion project as I have been a fan of the series for as long as I re
 #| Label: Table Dataset
 #| include: false
 
-# Ref https://www.spsanderson.com/steveondata/posts/2025-02-24/ for help
+# Ref [4] for help with establishing the dataframe and table
 poke_table <- data.frame(
   Variable = c("id","pokemon","type_1","type_2","hp","attack","defense","special_attack", "special_defense","speed","generation_id","starter*","evo_stage*", "region*", "base_stat_total*"),
   
@@ -96,7 +95,7 @@ poke_table <- data.frame(
 ```{r}
 #| Label: Variable Table
 
-# Ref https://www.rdocumentation.org/packages/kableExtra/versions/1.4.0/topics/kable_styling for kable_styling functions
+# Ref [5] for kable_styling functions
 poke_table |> 
   kableExtra::kable() |>
   kableExtra::kable_styling(font_size = 20,
@@ -135,7 +134,6 @@ starters |>
                   segment.color = NA,
                   max.overlaps = 3)+ #If nothing is labeled then theyre all there
                 
-  #Ref https://sape.inf.usi.ch/quick-reference/ggplot2/shape for shapes
   scale_shape_manual(values = c("triangle", "square", "circle"))+
   
   labs(
@@ -145,18 +143,14 @@ starters |>
     subtitle = "From Generation 1 to Generation 7",
     color = "Starter Type",
     shape = "Starter Type",
-    caption = "Source: 'Pokemon' dataset | TidyTuesday\nOverlapping starters not labeled" #https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md
-    
-    
+    caption = "Source: 'Pokemon' dataset | TidyTuesday\nOverlapping starters not labeled" #Ref [6] for original dataset
   )+
   
-  
-  # Ref https://ggplot2.tidyverse.org/reference/ggtheme.html for themes
+  # Ref [7] for themes
   theme_bw()+
     
   theme(
     panel.grid.major.x = element_blank()
-    
   )
 
 ```
@@ -184,7 +178,7 @@ pokemon_regions <- pokemon |>
   filter(!type == "NA")|> # Removes any rows of Pokemon that only had one type
   
 
-#Ref https://search.r-project.org/CRAN/refmans/tidytable/html/separate_rows.html for separate_rows() 
+#Ref [8] for separate_rows() 
   separate_rows(region, sep =",\\s*") |>
   
   group_by(region, type) |> # Group by regions to get our region count and then group by type to get the type count
@@ -197,14 +191,11 @@ pokemon_regions <- pokemon |>
   )
   
 
-
-
-
 ```
 
 ```{r}
 #| Label: Final Project Q2 Data Wrangling
-#| fig-height: 9
+#| fig-height: 9 # Adjusting height to fit the seven generations
 
 pokemon_regions |>
   
@@ -212,7 +203,7 @@ pokemon_regions |>
   
   facet_wrap(~region, scales = "free_x", ncol =1)+
   
-  #Ref https://ggplot2.tidyverse.org/reference/position_jitter.html to help with overlap
+  #Ref [9] to help with overlap and position_jitter()
   geom_point(shape = "square", size = 3, position = position_jitter(width = 0, height = 0.28, seed = 3)) +
   
   # Label the count number under each dot
@@ -228,7 +219,7 @@ pokemon_regions |>
     caption = "Sources: 'Pokemon' dataset | TidyTuesday\nbulbapeida"
   )+
   
-  #Ref https://bulbapedia.bulbagarden.net/wiki/Help:Color_templates for color codes
+  #Ref [10] for color codes
   scale_color_manual(values = c(
     "#91A119", #Bug
     "#624D4E", #Dark
@@ -250,7 +241,6 @@ pokemon_regions |>
     "#2980EF" #Water
   ))+
   
-  
   theme_bw() +
   
   theme(
@@ -271,12 +261,14 @@ pokemon_regions |>
   )
 ```
 
-## Plot 2 text
+## 
+
+- Right off the bat, we can see that Water has taken a clear lead in terms of diversity across the regions with Kanto having one more Poison type Pokemon. Generally, Flying and Normal are 2nd and 3rd.
+
+- Types like Steel, Ice, Ghost and Dragon generally are on the lower end of a region's variety. Sinnoh appears to be the most balanced with all types being relatively close together and has a min/max of 28 where as the other regions are between 31-56 in some cases.
 
 ## Conclusion & Takeaways
 
-- You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+- GameFreak has not been consistent with balancing the franchise as it went on. Fire type starters are generally the best starter type in terms of total stat points
 
-- But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
-
-## References
+- Water holds a disproportionate amount of a region's roster across generations which could be the answer to the starter imbalance. Fire is weak to Water so the increase in stats could be to address this. Whereas, Grass is strong against water so Pokemon starters of that type have reduced stats.

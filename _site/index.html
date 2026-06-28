@@ -9,7 +9,7 @@
 <meta name="author" content="Vincent Sciulli">
 <meta name="description" content="This project will jump into the world of Pokemon through the ‘Pokemon’ dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon?">
 
-<title>Gotta Visualize ’Em All! – Project Title</title>
+<title>Gotta Visualize ’Em All!</title>
 <style>
 
 code{white-space: pre-wrap;}
@@ -4208,7 +4208,7 @@ vertical-align: -.125em;
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Project Title</span>
+    <span class="navbar-title">Gotta Visualize ’Em All!</span>
     </a>
   </div>
             <div id="quarto-search" class title="Search"></div>
@@ -4236,7 +4236,7 @@ vertical-align: -.125em;
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/INFO-526-SU24/project-01"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/INFO-526-SU26/final-site-vincentsciulli3"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -4257,7 +4257,11 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -4303,9 +4307,58 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="abstract" class="level2">
-<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>This project will jump into the world of Pokemon through the ‘Pokemon’ dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon? While the aforementioned questions will be answered, we’ll also discover how well the Pokemon developers, GameFreak, balanced not just the partner Pokemon that accompanies us throughout our journeys, but also the available Pokemon that we’ll meet through a given region.</p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<p>My approach going into this is to have my dataset pre-manipulated prior to getting into the plotting and analysis. This entailed getting data from bulbapedia to create my “starter”, “evo_stage”, and “region” variables and to remove duplicate or disqualified Pokemon like alternate forms (not changing types) and Mega-Evolutions (which are temporary boosts and not standalone Pokemon). Once this is achieved, I can begin question 1 where I’ll have all the information needed. Then for question 2, some more manipulation will be needed to transform the dataset into one where the regions are listed alongside the types that appear in them.</p>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<p>I started off with preparing the dataset in a way that it would be friendly towards my two questions. Using data from bulbapedia.com, I added starter, evolution stage and region data to the dataset. Then after extracting the data, I created base_stat_total through mutate() and filtered out columns that were not to be included:</p>
+<p>Data wrangling was the most important step. Once I got the dataset looking the way it needed to be I was able to get going with the plotting and analysis. For the first question, I used methods from past assignments to create the facet plots for each evolution stage. Then plotted the starters in their respective stage and used aesthetics work to include color, shape and annotations.</p>
+<p>The second question was trickier as more data wrangling needed to be done to capture my intent. I needed my data to go from a list of Pokemon, to a list of the regions with the types of Pokemon alongside to be totaled. So with some pivoting and grouping, this was accomplished:</p>
+<pre class="{#| Label: Final Project Q2 Data Wrangling}"><code>#| include: false
+
+pokemon_regions &lt;- pokemon |&gt;
+
+  pivot_longer(
+    cols = c(type_1, type_2),
+    names_to = &quot;primary/secondary&quot;,
+    values_to = &quot;type&quot;
+  )   |&gt;
+  filter(!type == &quot;NA&quot;)|&gt; 
+  
+  separate_rows(region, sep =&quot;,\\s*&quot;) |&gt;
+  
+  group_by(region, type) |&gt; 
+    summarise(count = n(), .groups = &quot;drop&quot;) |&gt;
+  
+  mutate(
+    region = str_trim(region),
+    region = factor(region, levels = c(&quot;Kanto&quot;, &quot;Johto&quot;, &quot;Hoenn&quot;, &quot;Sinnoh&quot;, &quot;Unova&quot;, &quot;Kalos&quot;, &quot;Alola&quot;))
+  )</code></pre>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>The two plots tell very interesting stories when it comes to how GameFreak balances Pokemon. With the first plot, one could draw from it that GameFreak has typically gone with a mirrored balancing approach. Where the starters that begin with the best stat total in their first stage, become the ones with the least stats in the final stage and vice versa. Generally, Grass falls in the former category and Fire in the latter with Water being in the middle. Looking at only final evolutions, Fire starters have a 4 out of 7 advantage for having the best stat_totals in their generation. With Swampert, Water, has the highest out of all generations. Grass generally has the lowest base stat totals going into final forms. GameFreak appears to have a bias towards their Fire starters.</p>
+<p>The second plot gives us a overview of how diverse each region is in terms of its Pokemon population and the available choices a player would have in a play through. It is clear that Water appears the most frequent, with some cases being 56 more Pokemon than the lowest type in that region. There are types that hardly break 20 Pokemon in a given region with Dragon, Ghost, Steel and Ice being among these for most generations. This has more serious implications for game balance than the starters discussion as Water is seen as a strong type based off resistances and effectiveness. Having this many Pokemon of Water could be why Fire starters have higher stats in most generations and Grass has the fewest? Is this the way that GameFreak decides to balance?</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>References were created using mybib.com and are in the MLA format. These references encompass the entire final project (presentation and writeup).</p>
+<p>[1] KaihatsuYT. “Mt Coronet by KaihatsuYT on DeviantArt.” Deviantart.com, DeviantArt, 21 July 2019, www.deviantart.com/kaihatsuyt/art/Mt-Coronet-806533711. Accessed 2026.</p>
+<p>[2] Bulbapedia. “Regional Pokédex - Bulbapedia, the Community-Driven Pokémon Encyclopedia.” Bulbapedia, bulbapedia.bulbagarden.net/wiki/Regional_Pok%C3%A9dex. Accessed 2026.</p>
+<p>[3] “2021 Turtwig.” Inspiredpencil, 2021, ar.inspiredpencil.com/pictures-2023/turtwig. Accessed 2026.</p>
+<p>[4] Sanderson, Steven P. “How to Create Tables in R (with Examples) – a Comprehensive Guide Using Base R, Dplyr, and Data.table – Steve’s Data Tips and Tricks.” Steve’s Data Tips and Tricks, 24 Feb. 2025, www.spsanderson.com/steveondata/posts/2025-02-24/. Accessed 2026.</p>
+<p>[5] “Kable_styling Function - RDocumentation.” Www.rdocumentation.org, www.rdocumentation.org/packages/kableExtra/versions/1.4.0/topics/kable_styling. Accessed 2026.</p>
+<p>[6] rfordatascience. “Tidytuesday/Data/2025/2025-04-01/Readme.md at Main · Rfordatascience/Tidytuesday.” GitHub, 2025, github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md. Accessed 2026.</p>
+<p>[7] “Complete Themes — Ggtheme.” Ggplot2.Tidyverse.org, ggplot2.tidyverse.org/reference/ggtheme.html. Accessed 2026.</p>
+<p>[8] “R: Separate a Collapsed Column into Multiple Rows.” R-Project.org, search.r-project.org/CRAN/refmans/tidytable/html/separate_rows.html. Accessed 2026.</p>
+<p>[9] “Jitter Points to Avoid Overplotting — Position_jitter.” Ggplot2.Tidyverse.org, ggplot2.tidyverse.org/reference/position_jitter.html. Accessed 2026.</p>
+<p>[10] Bulbapedia. “Help:Color Templates - Bulbapedia, the Community-Driven Pokémon Encyclopedia.” Bulbapedia, 17 Apr. 2026, bulbapedia.bulbagarden.net/wiki/Help:Color_templates. Accessed 2026.</p>
 
 
 <!-- -->
@@ -4777,28 +4830,113 @@ vertical-align: -.125em;
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Gotta Visualize &#39;Em All!&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> &quot;INFO 526 - Summer 2026 - Final Project&quot;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: &quot;Vincent Sciulli&quot;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliations:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">      - name: &quot;School of Information, University of Arizona&quot;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> &quot;This project will jump into the world of Pokemon through the &#39;Pokemon&#39; dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon?&quot;  </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">   html:</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Abstract</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>This project will jump into the world of Pokemon through the &#39;Pokemon&#39; dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon? While the aforementioned questions will be answered, we&#39;ll also discover how well the Pokemon developers, GameFreak, balanced not just the partner Pokemon that accompanies us throughout our journeys, but also the available Pokemon that we&#39;ll meet through a given region.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Gotta Visualize &#39;Em All!&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> &quot;INFO 526 - Summer 2026 - Final Project&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: &quot;Vincent Sciulli&quot;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliations:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">      - name: &quot;School of Information, University of Arizona&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> &quot;This project will jump into the world of Pokemon through the &#39;Pokemon&#39; dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon?&quot;  </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">   html:</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>This project will jump into the world of Pokemon through the &#39;Pokemon&#39; dataset provided by TidyTuesday to answer the questions of (1) which starter is the best, statistically, throughout the evolutionary stages? and (2) what does the type diversity look like through the various regions of Pokemon? While the aforementioned questions will be answered, we&#39;ll also discover how well the Pokemon developers, GameFreak, balanced not just the partner Pokemon that accompanies us throughout our journeys, but also the available Pokemon that we&#39;ll meet through a given region.</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Approach</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>My approach going into this is to have my dataset pre-manipulated prior to getting into the plotting and analysis. This entailed getting data from bulbapedia to create my &quot;starter&quot;, &quot;evo_stage&quot;, and &quot;region&quot; variables and to remove duplicate or disqualified Pokemon like alternate forms (not changing types) and Mega-Evolutions (which are temporary boosts and not standalone Pokemon). Once this is achieved, I can begin question 1 where I&#39;ll have all the information needed. Then for question 2, some more manipulation will be needed to transform the dataset into one where the regions are listed alongside the types that appear in them.</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analysis</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>I started off with preparing the dataset in a way that it would be friendly towards my two questions. Using data from bulbapedia.com, I added starter, evolution stage and region data to the dataset. Then after extracting the data, I created base_stat_total through mutate() and filtered out columns that were not to be included:</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: Loading data and general data wrangling</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidymodels, tidyverse, readxl, ggrepel)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/pokemon_df_filt.xlsx&quot;</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>pokemon <span class="ot">&lt;-</span> pokemon <span class="sc">|&gt;</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">evo_stage =</span> <span class="fu">as.numeric</span>(evo_stage),</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">base_stat_total =</span> (attack <span class="sc">+</span> defense <span class="sc">+</span> special_attack <span class="sc">+</span> special_defense <span class="sc">+</span> speed <span class="sc">+</span> hp)) <span class="sc">|&gt;</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">&quot;height&quot;</span>, <span class="st">&quot;weight&quot;</span>, <span class="st">&quot;species_id&quot;</span>, <span class="st">&quot;base_experience&quot;</span>, <span class="st">&quot;color_1&quot;</span>, <span class="st">&quot;color_2&quot;</span>, <span class="st">&quot;color_f&quot;</span>, <span class="st">&quot;egg_group_1&quot;</span>, <span class="st">&quot;egg_group_2&quot;</span>, <span class="st">&quot;url_icon&quot;</span>, <span class="st">&quot;url_image&quot;</span>))</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>Data wrangling was the most important step. Once I got the dataset looking the way it needed to be I was able to get going with the plotting and analysis. For the first question, I used methods from past assignments to create the facet plots for each evolution stage. Then plotted the starters in their respective stage and used aesthetics work to include color, shape and annotations.</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>The second question was trickier as more data wrangling needed to be done to capture my intent. I needed my data to go from a list of Pokemon, to a list of the regions with the types of Pokemon alongside to be totaled. So with some pivoting and grouping, this was accomplished:</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{#| Label: Final Project Q2 Data Wrangling}</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="in">#| include: false</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="in">pokemon_regions &lt;- pokemon |&gt;</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="in">  pivot_longer(</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="in">    cols = c(type_1, type_2),</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="in">    names_to = &quot;primary/secondary&quot;,</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="in">    values_to = &quot;type&quot;</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="in">  )   |&gt;</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="in">  filter(!type == &quot;NA&quot;)|&gt; </span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="in">  separate_rows(region, sep =&quot;,\\s*&quot;) |&gt;</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="in">  group_by(region, type) |&gt; </span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="in">    summarise(count = n(), .groups = &quot;drop&quot;) |&gt;</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="in">    region = str_trim(region),</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="in">    region = factor(region, levels = c(&quot;Kanto&quot;, &quot;Johto&quot;, &quot;Hoenn&quot;, &quot;Sinnoh&quot;, &quot;Unova&quot;, &quot;Kalos&quot;, &quot;Alola&quot;))</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Discussion</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>The two plots tell very interesting stories when it comes to how GameFreak balances Pokemon. With the first plot, one could draw from it that GameFreak has typically gone with a mirrored balancing approach. Where the starters that begin with the best stat total in their first stage, become the ones with the least stats in the final stage and vice versa. Generally, Grass falls in the former category and Fire in the latter with Water being in the middle. Looking at only final evolutions, Fire starters have a 4 out of 7 advantage for having the best stat_totals in their generation. With Swampert, Water, has the highest out of all generations. Grass generally has the lowest base stat totals going into final forms. GameFreak appears to have a bias towards their Fire starters.</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>The second plot gives us a overview of how diverse each region is in terms of its Pokemon population and the available choices a player would have in a play through. It is clear that Water appears the most frequent, with some cases being 56 more Pokemon than the lowest type in that region. There are types that hardly break 20 Pokemon in a given region with Dragon, Ghost, Steel and Ice being among these for most generations. This has more serious implications for game balance than the starters discussion as Water is seen as a strong type based off resistances and effectiveness. Having this many Pokemon of Water could be why Fire starters have higher stats in most generations and Grass has the fewest? Is this the way that GameFreak decides to balance?</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>References were created using mybib.com and are in the MLA format. These references encompass the entire final project (presentation and writeup).</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>1<span class="sc">\]</span> KaihatsuYT. “Mt Coronet by KaihatsuYT on DeviantArt.” Deviantart.com, DeviantArt, 21 July 2019, www.deviantart.com/kaihatsuyt/art/Mt-Coronet-806533711. Accessed 2026.</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>2<span class="sc">\]</span> Bulbapedia. “Regional Pokédex - Bulbapedia, the Community-Driven Pokémon Encyclopedia.” Bulbapedia, bulbapedia.bulbagarden.net/wiki/Regional_Pok%C3%A9dex. Accessed 2026.</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>3<span class="sc">\]</span> “2021 Turtwig.” Inspiredpencil, 2021, ar.inspiredpencil.com/pictures-2023/turtwig. Accessed 2026.</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>4<span class="sc">\]</span> Sanderson, Steven P. “How to Create Tables in R (with Examples) – a Comprehensive Guide Using Base R, Dplyr, and Data.table – Steve’s Data Tips and Tricks.” Steve’s Data Tips and Tricks, 24 Feb. 2025, www.spsanderson.com/steveondata/posts/2025-02-24/. Accessed 2026.</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>5<span class="sc">\]</span> “Kable_styling Function - RDocumentation.” Www.rdocumentation.org, www.rdocumentation.org/packages/kableExtra/versions/1.4.0/topics/kable_styling. Accessed 2026.</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>6<span class="sc">\]</span> rfordatascience. “Tidytuesday/Data/2025/2025-04-01/Readme.md at Main · Rfordatascience/Tidytuesday.” GitHub, 2025, github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md. Accessed 2026.</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>7<span class="sc">\]</span> “Complete Themes — Ggtheme.” Ggplot2.Tidyverse.org, ggplot2.tidyverse.org/reference/ggtheme.html. Accessed 2026.</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>8<span class="sc">\]</span> “R: Separate a Collapsed Column into Multiple Rows.” R-Project.org, search.r-project.org/CRAN/refmans/tidytable/html/separate_rows.html. Accessed 2026.</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>9<span class="sc">\]</span> “Jitter Points to Avoid Overplotting — Position_jitter.” Ggplot2.Tidyverse.org, ggplot2.tidyverse.org/reference/position_jitter.html. Accessed 2026.</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>10<span class="sc">\]</span> Bulbapedia. “Help:Color Templates - Bulbapedia, the Community-Driven Pokémon Encyclopedia.” Bulbapedia, 17 Apr. 2026, bulbapedia.bulbagarden.net/wiki/Help:Color_templates. Accessed 2026.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
